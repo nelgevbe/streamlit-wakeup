@@ -22,7 +22,7 @@
 {
   "event_type": "streamlit_wakeup",
   "client_payload": {
-    "status": "{{ heartbeat.status }}",
+    "status": "{{ status }}",
     "msg": "{{ msg }}"
   }
 }
@@ -56,7 +56,8 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'repository_dispatch' && github.event.client_payload.status == '0')
+      (github.event_name == 'repository_dispatch' &&
+      (github.event.client_payload.status == '0' || github.event.client_payload.status == 0))
     steps:
       - name: Wake up App
         run: |
