@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'repository_dispatch' && format('{0}', github.event.client_payload.status) == '0')
+      (github.event.action == 'streamlit_wakeup' && contains(toJson(github.event.client_payload), 'Down'))
     steps:
       - name: Wake up App
         run: |
