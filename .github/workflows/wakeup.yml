@@ -7,7 +7,7 @@ on:
 
 jobs:
   auto_wakeup_streamlit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: |
       github.event_name == 'workflow_dispatch' ||
       (github.event.action == 'streamlit_wakeup' && contains(toJson(github.event.client_payload), 'Down'))
@@ -20,12 +20,12 @@ jobs:
           echo "Message received: ${{ github.event.client_payload.msg }}"
         
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: 24
 
       - name: Install dependencies
         run: npm install
